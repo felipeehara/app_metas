@@ -1,5 +1,5 @@
 const {select,input,checkbox} = require ('@inquirer/prompts'); //MENU INTERATIVO COM O USUARIO
-const fs = require("fs").promisses;
+const fs = require("fs").promises;
 
 let mensagem ='Bem vindo ao App de Metas!';
  
@@ -7,7 +7,7 @@ let metas
 
 const carregarMetas = async () => {
     try {
-        const dados = await fs.readFile("metas.json", "utf-8");
+        const dados = await fs.readFile("metas.json", "utf-8")
         metas = JSON.parse(dados) 
     }
     catch(erro) {
@@ -16,7 +16,7 @@ const carregarMetas = async () => {
 }
 
 const salvarMetas = async () => {
-    await fs.whiteFile("metas.json", JSON.stringify(metas, null, 2))
+    await fs.writeFile("metas.json", JSON.stringify(metas, null, 2))
 }
 
 
@@ -37,6 +37,12 @@ async function cadastrarMeta() {
 }
 
 async function listarMetas() {
+
+    if(metas.length == 0) {
+        mensagem = "Não existem metas!"
+        return;
+    }
+
     const respostas = await checkbox ({
         message: "Use as setas para mudar de meta, o espaço para marcar ou desmarcar e o Enter para finalizar essa etapa.",
         choices: [...metas],
@@ -63,6 +69,10 @@ async function listarMetas() {
 }
 
 const metasRealizadas = async () => {
+    if(metas.length == 0) {
+        mensagem = "Não existem metas!"
+        return;
+    }
     const realizadas = metas.filter((meta) => {
         return meta.checked;
     });
@@ -74,11 +84,15 @@ const metasRealizadas = async () => {
 
     await select ({
         message: "Metas Realizadas: " + realizadas.length,
-        choices: [... realizadas]
+        choices: [...realizadas]
     })
 }
 
 const metasAbertas = async () => {
+    if(metas.length == 0) {
+        mensagem = "Não existem metas!"
+        return;
+    }
     const abertas = metas.filter((meta) => {
         return meta.checked != true
     })
@@ -95,6 +109,10 @@ const metasAbertas = async () => {
 }
 
 const deletarMetas = async () => {
+    if(metas.length == 0) {
+        mensagem = "Não existem metas!"
+        return;
+    }
     const metasDesmarcadas = metas.map((meta) => {
         return {value: meta.value, checked: false } 
     }) 

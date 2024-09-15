@@ -1,6 +1,18 @@
 [
-    {
-        "value": "Tomar 3L de água por dia",
-        "checked": false
-    }
+  {
+    "value": "Tomar 3L de água por dia",
+    "checked": false
+  },
+  {
+    "value": "ANDAR 20 MINUTOS TODOS OS DIAS",
+    "checked": false
+  },
+  {
+    "value": "MEDITAR 5 MINUTOS TODOS OS DIAS",
+    "checked": false
+  },
+  {
+    "value": "LER POR 15 MINUTOS",
+    "checked": false
+  }
 ]
